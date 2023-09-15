@@ -4,7 +4,7 @@ import React from 'react'
 const Categories = () => {
   return (
     <View>
-      <Text>Categories</Text>
+      <Text>CATEGORIES</Text>
     </View>
   )
 }
