@@ -43,9 +43,9 @@ const RestaurantItems = (props) => {
                         padding: 15,
                         backgroundColor: 'white',
                         borderRadius: 10,
-                        shadowColor: 'gray',
+                        shadowColor: 'black',
                         shadowOffset: { width: 0, height: 5 },
-                        shadowOpacity: 0.2,
+                        shadowOpacity: 0.8,
                         shadowRadius: 2,
                         elevation: 10,
                     }}>
