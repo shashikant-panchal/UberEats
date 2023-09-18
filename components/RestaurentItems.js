@@ -43,11 +43,11 @@ const RestaurantItem = () => {
                         padding: 15,
                         backgroundColor: 'white',
                         borderRadius: 10,
-                        shadowColor: 'black',
-                        shadowOffset: { width: 0, height: 4 },
-                        shadowOpacity: 0.5,
+                        shadowColor: 'gray',
+                        shadowOffset: { width: 0, height: 5 },
+                        shadowOpacity: 0.2,
                         shadowRadius: 2,
-                        elevation: 5,
+                        elevation: 10,
                     }}>
                     <RestaurantImage image_url={restaurant.image_url} />
                     <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
