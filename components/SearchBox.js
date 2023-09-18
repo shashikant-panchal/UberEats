@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, TextInput, Text, TouchableOpacity, FlatList } from 'react-native';
 import MapboxGeocoder from '@mapbox/mapbox-sdk/services/geocoding';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -7,7 +7,8 @@ const mapboxApiKey = 'pk.eyJ1IjoiaGFzZWViLWNyZWF0b3IiLCJhIjoiY2xtb215ZzlyMTVwNjJ
 
 const geocodingClient = MapboxGeocoder({ accessToken: mapboxApiKey });
 
-const SearchBox = () => {
+const SearchBox = ({ onLocationSelect }) => {
+    const textInputRef = useRef(null);
     const [query, setQuery] = useState('');
     const [results, setResults] = useState([]);
     const [showSearchButton, setShowSearchButton] = useState(false);
@@ -39,7 +40,15 @@ const SearchBox = () => {
 
     const handleSelectPlace = (place) => {
         console.log('Selected Place:', place);
+        onLocationSelect(place);
+        const completeCityName = place.place_name;
+        setQuery(completeCityName);
+        textInputRef.current.blur();
+        setResults([]);
     };
+
+
+
 
     const handleClearInput = () => {
         setQuery('');
@@ -56,12 +65,14 @@ const SearchBox = () => {
                     style={{
                         flex: 1,
                         fontSize: 15,
-                        color: 'black',
                         fontWeight: '700',
                         height: 50,
                     }}
+                    placeholderTextColor={'gray'}
                     onChangeText={handleInputChange}
                     value={query}
+                    ref={textInputRef}
+                    defaultValue={query}
                 />
                 {showSearchButton && (
                     <TouchableOpacity onPress={handleClearInput}>
