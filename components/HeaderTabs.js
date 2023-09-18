@@ -1,15 +1,13 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
 
-const HeaderTabs = () => {
-  const [activeTab, setActiveTab] = useState('Delivery')
+const HeaderTabs = (props) => {
 
   return (
     <View style={{ flexDirection: 'row', alignSelf: 'center', backgroundColor: 'lightgray', padding: 10, borderRadius: 25 }}>
       {/* HeaderButton1 */}
-      <HeaderButton text='Delivery' btnColor='black' textColor='white' activeTab={activeTab} setActiveTab={setActiveTab} isLeftRounded={false} isRightRounded={true} />
+      <HeaderButton text='Delivery' btnColor='black' textColor='white' activeTab={props.activeTab} setActiveTab={props.setActiveTab} isLeftRounded={false} isRightRounded={true} />
       {/* HeaderButton2 */}
-      <HeaderButton text='Pickup' btnColor='white' textColor='black' activeTab={activeTab} setActiveTab={setActiveTab} isLeftRounded={true} isRightRounded={false} />
+      <HeaderButton text='Pickup' btnColor='white' textColor='black' activeTab={props.activeTab} setActiveTab={props.setActiveTab} isLeftRounded={true} isRightRounded={false} />
     </View>
   )
 }
