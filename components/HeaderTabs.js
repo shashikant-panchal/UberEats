@@ -5,7 +5,7 @@ const HeaderTabs = () => {
   const [activeTab, setActiveTab] = useState('Delivery')
 
   return (
-    <View style={{ flexDirection: 'row', alignSelf: 'center', backgroundColor: 'lightgray', padding: 10, borderRadius: 20 }}>
+    <View style={{ flexDirection: 'row', alignSelf: 'center', backgroundColor: 'lightgray', padding: 10, borderRadius: 25 }}>
       {/* HeaderButton1 */}
       <HeaderButton text='Delivery' btnColor='black' textColor='white' activeTab={activeTab} setActiveTab={setActiveTab} isLeftRounded={false} isRightRounded={true} />
       {/* HeaderButton2 */}
