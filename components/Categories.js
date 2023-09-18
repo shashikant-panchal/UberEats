@@ -38,7 +38,8 @@ const Categories = () => {
         <View style={{
             marginTop: 5,
             backgroundColor: 'white',
-            paddingVertical: 10
+            paddingVertical: 10,
+            paddingHorizontal:10
         }}>
             <FlatList
                 data={items}
