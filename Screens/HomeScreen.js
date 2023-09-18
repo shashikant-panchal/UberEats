@@ -10,12 +10,14 @@ const YELP_API_KEY = 'Vypukigi6IWBFBQQwU1z7oWA8daIIx8U7Us-cnV6_T9xoyxzTbthYISnYD
 
 const HomeScreen = () => {
     const [restaurantData, setRestaurantData] = useState(localRestaurants);
-    const [selectedLocation, setSelectedLocation] = useState('Los Angeles');
-    const [error, setError] = useState(null); // State for handling errors
+    const [selectedLocation, setSelectedLocation] = useState('San Fransisco');
+    const [error, setError] = useState(null);
+    const [activeTab, setActiveTab] = useState('Delivery')
 
     useEffect(() => {
         getRestaurantDataFromYelp(selectedLocation);
-    }, [selectedLocation]);
+        console.log(activeTab);
+    }, [selectedLocation, activeTab]);
 
     const getRestaurantDataFromYelp = (location) => {
         const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${location}`;
@@ -29,15 +31,15 @@ const HomeScreen = () => {
         axios
             .get(yelpUrl, apiOptions)
             .then((response) => {
-                setRestaurantData(response.data.businesses);
-                setError(null); // Clear any previous error
+                setRestaurantData(response.data.businesses.filter((b) => b.transactions.includes(activeTab.toLowerCase())));
+                setError(null);
             })
             .catch((error) => {
                 console.error('Error fetching data from Yelp API:', error);
 
                 if (error.response && error.response.status === 400) {
                     // Handle the specific error where no items are available for the region
-                        setError('No items available for this region.');
+                    setError('No items available for this region.');
                 } else {
                     setError('An error occurred while fetching data.'); // Handle other errors
                 }
@@ -51,7 +53,7 @@ const HomeScreen = () => {
     return (
         <SafeAreaView style={{ backgroundColor: 'lightgray' }}>
             <View style={{ backgroundColor: 'white', padding: 15 }}>
-                <HeaderTabs />
+                <HeaderTabs activeTab={activeTab} setActiveTab={setActiveTab} />
                 <SearchBox onLocationSelect={handleLocationSelect} />
                 {error && (
                     <Text style={{ color: 'red', textAlign: 'center', marginTop: 10 }}>
