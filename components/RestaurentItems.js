@@ -32,33 +32,40 @@ export const localRestaurants = [
     },
 ];
 
-const RestaurentItem = () => {
+const RestaurantItem = () => {
     return (
-        <TouchableOpacity activeOpacity={1} style={{
-            marginBottom: 280
-        }}>
+        <TouchableOpacity activeOpacity={1} style={{marginBottom: '71%', width:'95%', justifyContent:'center', alignSelf:'center' }}>
             {localRestaurants.map((restaurant, index) => (
                 <View
                     key={index}
                     style={{
                         marginTop: 10,
                         padding: 15,
-                        backgroundColor: 'white'
+                        backgroundColor: 'white',
+                        borderRadius: 10,
+                        shadowColor: 'black',
+                        shadowOffset: { width: 0, height: 4 },
+                        shadowOpacity: 0.5,
+                        shadowRadius: 2,
+                        elevation: 5,
                     }}>
-                    <RestaurentImage image_url={restaurant.image_url} />
-                    <RestaurentInfo name={restaurant.name} rating={restaurant.rating} />
+                    <RestaurantImage image_url={restaurant.image_url} />
+                    <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
                 </View>
             ))}
         </TouchableOpacity>
-
     )
 }
 
-const RestaurentImage = (props) => {
+const RestaurantImage = (props) => {
     return (
         <>
             <Image source={{ uri: props.image_url }}
-                style={{ width: '100%', height: 180 }}
+                style={{
+                    width: '100%',
+                    height: 180,
+                    borderRadius: 10,
+                }}
             />
             <TouchableOpacity style={{
                 position: 'absolute',
@@ -71,9 +78,14 @@ const RestaurentImage = (props) => {
     );
 }
 
-const RestaurentInfo = (props) => {
+const RestaurantInfo = (props) => {
     return (
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
+        <View style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginTop: 10
+        }}>
             <View>
                 <Text style={{
                     fontSize: 15,
@@ -102,4 +114,4 @@ const RestaurentInfo = (props) => {
     )
 }
 
-export default RestaurentItem;
+export default RestaurantItem;
