@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 import React, { useState, useEffect } from 'react';
+import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 import HeaderTabs from '../components/HeaderTabs';
 import SearchBox from '../components/SearchBox';
 import Categories from '../components/Categories';
@@ -10,13 +10,15 @@ const YELP_API_KEY = 'Vypukigi6IWBFBQQwU1z7oWA8daIIx8U7Us-cnV6_T9xoyxzTbthYISnYD
 
 const HomeScreen = () => {
     const [restaurantData, setRestaurantData] = useState(localRestaurants);
+    const [selectedLocation, setSelectedLocation] = useState('Los Angeles');
+    const [error, setError] = useState(null); // State for handling errors
 
     useEffect(() => {
-        getRestaurantDataFromYelp();
-    }, []);
+        getRestaurantDataFromYelp(selectedLocation);
+    }, [selectedLocation]);
 
-    const getRestaurantDataFromYelp = () => {
-        const yelpUrl = 'https://api.yelp.com/v3/businesses/search?term=restaurants&location=LosAngeles';
+    const getRestaurantDataFromYelp = (location) => {
+        const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${location}`;
 
         const apiOptions = {
             headers: {
@@ -28,17 +30,34 @@ const HomeScreen = () => {
             .get(yelpUrl, apiOptions)
             .then((response) => {
                 setRestaurantData(response.data.businesses);
+                setError(null); // Clear any previous error
             })
             .catch((error) => {
                 console.error('Error fetching data from Yelp API:', error);
+
+                if (error.response && error.response.status === 400) {
+                    // Handle the specific error where no items are available for the region
+                        setError('No items available for this region.');
+                } else {
+                    setError('An error occurred while fetching data.'); // Handle other errors
+                }
             });
+    };
+
+    const handleLocationSelect = (selectedPlace) => {
+        setSelectedLocation(selectedPlace.place_name);
     };
 
     return (
         <SafeAreaView style={{ backgroundColor: 'lightgray' }}>
             <View style={{ backgroundColor: 'white', padding: 15 }}>
                 <HeaderTabs />
-                <SearchBox />
+                <SearchBox onLocationSelect={handleLocationSelect} />
+                {error && (
+                    <Text style={{ color: 'red', textAlign: 'center', marginTop: 10 }}>
+                        {error}
+                    </Text>
+                )}
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Categories />
