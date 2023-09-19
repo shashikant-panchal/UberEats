@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ScrollView } from 'react-native';
-import HeaderTabs from '../components/HeaderTabs';
-import SearchBox from '../components/SearchBox';
-import Categories from '../components/Categories';
-import RestaurantItems, { localRestaurants } from '../components/RestaurentItems';
+import HeaderTabs from '../components/Home/HeaderTabs';
+import SearchBox from '../components/Home/SearchBox';
+import Categories from '../components/Home/Categories';
+import RestaurantItems, { localRestaurants } from '../components/Home/RestaurentItems';
 import axios from 'axios';
 
 const YELP_API_KEY = 'Vypukigi6IWBFBQQwU1z7oWA8daIIx8U7Us-cnV6_T9xoyxzTbthYISnYDIFKAZjUPhzXnWFf99am5l8aBA62hFef6ZYQWep2EZfoft-0Y9AdzVN-nxNTCZnresFZXYx';
