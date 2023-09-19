@@ -63,7 +63,9 @@ const HomeScreen = () => {
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
                 <Categories />
-                <RestaurantItems restaurantData={restaurantData} />
+                <View style={{ marginBottom: '72%' }}>
+                    <RestaurantItems restaurantData={restaurantData} />
+                </View>
             </ScrollView>
         </SafeAreaView>
     );
